@@ -26,7 +26,7 @@ const AdminListPage = () => {
     <table className="basic mt-2">
         <thead>
             <tr>
-            <td><h1>Admins</h1></td>
+            <td><h1 className='my-auto'>Admins</h1></td>
             <td></td>
             <td></td>
             </tr>
