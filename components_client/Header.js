@@ -65,6 +65,10 @@ const NavButton = styled.button`
   }
 `;
 
+const LogoutButton = styled.button`
+color: #aaa;
+`
+
 export default function Header() {
   const router = useRouter();
   const {cartProducts} = useContext(CartContext);
@@ -92,7 +96,7 @@ export default function Header() {
             {/* <NavLink href={'/categories'}>Categories</NavLink> */}
             {/* <NavLink href={'/account'}>Account</NavLink> */}
             <NavLink href={'/client/cart'}>Cart ({cartProducts.length})</NavLink>
-            <button onClick={logout} className="logoutButton">Logout</button>
+            <LogoutButton onClick={logout} className="logoutButton">Logout</LogoutButton>
           </StyledNav>
           <NavButton onClick={() => setMobileNavActive(prev => !prev)}>
             <BarsIcon />

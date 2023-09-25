@@ -7,6 +7,7 @@ import {CartContext} from "@/components_client/CartContext";
 import axios from "axios";
 import Table from "@/components_client/Table";
 import Input from "@/components_client/Input";
+import toast from "react-hot-toast";
 
 const ColumnsWrapper = styled.div`
   display: grid;
@@ -75,6 +76,7 @@ const CityHolder = styled.div`
 
 
 
+
 export default function CartPage() {
   const {cartProducts,addProduct,removeProduct,clearCart} = useContext(CartContext);
   useEffect(() => {
@@ -122,12 +124,16 @@ export default function CartPage() {
     removeProduct(id);
   }
   async function goToPayment() {
+    if(name.length < 3){
+      toast.error("Full name should be atleast 3 characters long");
+    }else{
     const response = await axios.post('/api/checkout_client', {
       name,email,city,postalCode,streetAddress,country,
       cartProducts,
     });
     if (response.data.url) {
       window.location = response.data.url;
+    }
     }
   }
   let total = 0;
@@ -158,7 +164,7 @@ export default function CartPage() {
         <ColumnsWrapper>
           <Box>
             <H2>
-            <h1>Cart</h1>
+            Cart
             </H2>
             {!cartProducts?.length && (
               <div>Your cart is empty</div>

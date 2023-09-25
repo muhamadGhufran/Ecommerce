@@ -4,6 +4,7 @@ import { signIn } from "next-auth/react";
 import { useRouter } from "next/router";
 import { loginUser2 } from "@/helpers";
 import { AxiosError } from "axios";
+import toast from "react-hot-toast";
 
 export default function Login() {
   const [emailAdmin, setEmailAdmin] = useState("");
@@ -22,7 +23,7 @@ export default function Login() {
       const loginRes = await loginUser2({emailAdmin, password})
 
       if(loginRes && !loginRes.ok){
-        setSubmitError(loginRes.error || "")
+        toast.error(loginRes.error || "")
       }
       else {
         console.log("User signed in");
@@ -32,7 +33,7 @@ export default function Login() {
     } catch (error){
       if(error instanceof AxiosError){
         const errorMsg = error.response?.data?.error
-        setSubmitError(errorMsg)
+        toast.error(errorMsg)
       }
     }
     setLoading(false)
@@ -78,11 +79,11 @@ export default function Login() {
               Login
             </button>
           </div>
-          {submitError && (
+          {/* {submitError && (
           <div className="bg-red-500 text-white w-fit text-sm py-1 px-3 rounded-md mt-2">
             {submitError}
           </div>
-        )} 
+        )}  */}
         {/* <p className="mt-4 text-sm text-center text-gray-700">
           Don't have an account?{" "}
           <Link

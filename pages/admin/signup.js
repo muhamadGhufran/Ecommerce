@@ -3,7 +3,7 @@ import {useRouter} from 'next/navigation'
 import Link from 'next/link'
 import axios, { AxiosError } from "axios";
 import { loginUser2 } from "@/helpers";
-import {toast} from 'react-toastify'
+import toast from "react-hot-toast";
  
 export default function RegisterPage() {
   const [data, setData] = useState({
@@ -20,10 +20,12 @@ export default function RegisterPage() {
 
   const registerAdmin = async (e) => {
     e.preventDefault();
-    if (data.password && data.password.length < 6) {
-      setSubmitError("Password should be at least 6 characters long");
+    if(data.fullName.length < 3){
+      toast.error("Full name should be atleast 3 characters long")
+    }else if (data.password && data.password.length < 6) {
+      toast.error("Password should be at least 6 characters long");
     }else if(data.password !== data.confirmPassword){
-      setSubmitError("Passwords don't match")
+      toast.error("Passwords don't match")
     }else{
         try {
         console.log("button clicked");
@@ -118,11 +120,11 @@ export default function RegisterPage() {
             onChange={(e) => setData({...data, confirmPassword: e.target.value})}
           />
         </div>
-        {submitError && (
+        {/* {submitError && (
           <div className="bg-red-500 text-white w-fit text-sm py-1 px-3 rounded-md mt-2">
             {submitError}
           </div>
-        )}  
+        )}   */}
         <div className="mt-2">
           <button className="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-gray-700 rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600">
             Sign Up
